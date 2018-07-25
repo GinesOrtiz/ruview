@@ -1,0 +1,77 @@
+.media-card {
+  position: relative;
+  display: inline-block;
+  transition: all 0.2s;
+  margin: 10px 0;
+  width: 240px;
+  height: 135px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.media-card:hover {
+  scale: 1.1;
+  z-index: 99;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.media-card .media-name {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: rgba(253, 24, 91, 0.75);
+  opacity: 0;
+  transition: all 0.2s;
+  border-radius: 3px;
+  padding: 0 20px;
+}
+
+.media-card.with-content .media-name {
+  background: rgba(253, 24, 91, 0.4);
+}
+
+.media-card:hover .media-name {
+  opacity: 1;
+}
+
+.media-card.with-content .media-name {
+  opacity: 1;
+}
+
+.media-card img {
+  transition: all 0.2s;
+  border-radius: 3px;
+}
+
+.media-card:hover img {
+  filter: grayscale(100%);
+}
+
+.media-card.with-content img {
+  filter: grayscale(50%);
+}
+
+.media-card .media-name span {
+  color: white;
+  font-size: 18px;
+  line-height: 20px;
+  display: block;
+  text-shadow: 0 0 20px black;
+}
+
+.media-card .timeline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 30px;
+}
+.media-card .timeline .timeline-bar {
+  height: 3px;
+  background: white;
+  width: 100%;
+}

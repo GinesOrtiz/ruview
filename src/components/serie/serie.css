@@ -1,0 +1,71 @@
+.serie-section .serie-info {
+  color: white;
+  padding: 15px 0;
+}
+
+.serie-section .serie-info h3 {
+  padding: 0;
+}
+
+.serie-section .serie-info .description {
+  text-align: justify;
+}
+.serie-section .serie-info .info-thumb {
+  min-width: 260px;
+  max-width: 260px;
+}
+
+.serie-section .season-selector {
+  color: white;
+  padding: 8px 12px;
+}
+
+.serie-section .season-selector .season {
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.1s;
+  position: relative;
+}
+
+.serie-section .season-selector .season:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30px;
+  width: 0;
+  bottom: 0;
+  background: #fd185b;
+  transition: all 0.2s;
+  z-index: 0;
+}
+
+.serie-section .season-selector .season.active:before {
+  width: calc(100% + 30px);
+}
+
+.serie-section .season-selector .season span {
+  position: relative;
+  z-index: 1;
+}
+
+.serie-section .episodes-column {
+  position: relative;
+}
+
+.serie-section .episodes-column .ru-loading {
+  position: absolute;
+}
+
+.serie-section .episode-selector {
+  color: white;
+  margin-bottom: 40px;
+}
+
+.serie-section .episode-selector .row {
+  margin: 0;
+}
+
+.serie-section .episode-selector .col {
+  width: 240px;
+  padding: 0;
+}

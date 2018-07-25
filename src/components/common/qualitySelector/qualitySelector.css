@@ -1,0 +1,15 @@
+.quality-selector select {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: #fd175b;
+  color: white;
+  -webkit-appearance: none;
+  padding: 2px 10px;
+  border-radius: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 9999;
+  outline: none;
+}

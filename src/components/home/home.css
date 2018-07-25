@@ -1,0 +1,11 @@
+.home-section {
+  margin-bottom: 40px;
+}
+.home-section .row {
+  margin: 0;
+}
+
+.home-section .col {
+  width: 240px;
+  padding: 0;
+}

@@ -1,0 +1,10 @@
+.video-section {
+  margin: 0 -15px;
+  height: 100%;
+}
+
+.video-section video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

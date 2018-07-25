@@ -1,0 +1,84 @@
+/* globals ga */
+
+import React from "react";
+import { Alert } from "reactstrap";
+import axios from "../../services/client";
+import Loading from "../common/Loading";
+import MediaCard from "../common/mediaCard/MediaCard";
+import "./home.css";
+
+class Home extends React.Component {
+  state = {
+    content: null,
+    userSeries: null
+  };
+
+  componentWillMount = () => {
+    ga("send", "event", "Page", this.props.section || "home");
+    this.requestMainContent(this.state.section);
+    this.setState({
+      userSeries: Object.keys(localStorage)
+        .filter(e => e.includes("show"))
+        .map(e => parseInt(e.substr(5)))
+    });
+  };
+
+  requestMainContent = () => {
+    axios.get("?s=all").then(e => {
+      this.setState({ content: e.data });
+    });
+  };
+
+  render() {
+    if (!this.state.content) {
+      return <Loading text="Loading content" />;
+    }
+
+    return (
+      <div className="home-section">
+        <Alert className="m-4 changelog">New version released: Added movies from WowPresents!</Alert>
+        {!this.props.avoidUserSeries &&
+          this.state.userSeries && (
+            <div>
+              <h3 className="default-title">Continue watching</h3>
+              <div className="row align-items-center">
+                {this.state.content
+                  .filter(e => this.state.userSeries.includes(e.id))
+                  .map(e => (
+                    <div className="col media-content" key={e.id}>
+                      <MediaCard {...e} />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+        {!this.props.avoidSeries && (
+          <div>
+            <h3 className="default-title">Series</h3>
+            <div className="row align-items-center">
+              {this.state.content.filter(e => e.type === "series").map(e => (
+                <div className="col media-content" key={e.id}>
+                  <MediaCard {...e} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {!this.props.avoidMovies && (
+          <div>
+            <h3 className="default-title">Movies</h3>
+            <div className="row align-items-center">
+              {this.state.content.filter(e => e.type === "movies").map(e => (
+                <div className="col media-content" key={e.id}>
+                  <MediaCard {...e} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default Home;
