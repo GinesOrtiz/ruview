@@ -14,6 +14,17 @@ const onMediaCardClick = props => {
 const isTimeline = props =>
   JSON.parse(localStorage.getItem(`video-${props.id}`));
 
+const getImage = props => {
+  if (props.outtv) {
+    if (props.thumbnail.indexOf("1920x1080") > 1) {
+      return props.thumbnail.replace("1920x1080", "480x1080");
+    }
+    return `${props.thumbnail}`;
+  } else {
+    return `${props.thumbnail}?fit=crop&fm=jpg&q=75&w=240&h135`;
+  }
+};
+
 const MediaCard = props => (
   <div
     onClick={() => onMediaCardClick(props)}
@@ -21,7 +32,7 @@ const MediaCard = props => (
   >
     <img
       alt={props.name}
-      src={`${props.thumbnail}?fit=crop&fm=jpg&q=75&w=240&h135`}
+      src={`${getImage(props)}`}
       width="240px"
       height="135px"
     />

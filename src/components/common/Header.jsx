@@ -18,6 +18,9 @@ class Header extends React.Component {
         <Link to="/movies">
           <Icon type="local_movies" />
         </Link>
+        <Link to="/outtv">
+          <Icon type="add_to_queue" />
+        </Link>
       </Navbar>
     );
   }

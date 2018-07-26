@@ -10,6 +10,9 @@ import Movies from "./components/home/Movies";
 import Serie from "./components/serie/Serie";
 import Movie from "./components/movie/Movie";
 import Video from "./components/video/Video";
+import OuttvHome from "./components/outtv/Home";
+import OuttvSerie from "./components/outtv/Serie";
+import OuttvVideo from "./components/outtv/Video";
 
 const App = () => (
   <Router history={history}>
@@ -24,6 +27,10 @@ const App = () => (
           <Route exact path="/movies/:id" component={Movie} />
           <Route exact path="/video/:id" component={Video} />
           <Route exact path="/movie/:id" component={Video} />
+          <Route exact path="/outtv" component={OuttvHome} />
+          <Route exact path="/outtv/serie/:id" component={OuttvSerie} />
+          <Route exact path="/outtv/video/:id" component={OuttvVideo} />
+          <Route exact path="/outtv/:tab" component={OuttvHome} />
         </Switch>
       </div>
     </div>
