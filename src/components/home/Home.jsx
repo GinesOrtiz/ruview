@@ -5,6 +5,7 @@ import { Alert } from "reactstrap";
 import axios from "../../services/client";
 import Loading from "../common/Loading";
 import MediaCard from "../common/mediaCard/MediaCard";
+import Icon from "../common/Icon";
 import "./home.css";
 
 class Home extends React.Component {
@@ -36,7 +37,10 @@ class Home extends React.Component {
 
     return (
       <div className="home-section">
-        <Alert className="m-4 changelog">New version released: Added movies from WowPresents!</Alert>
+        <Alert className="m-4 changelog">
+          Version 2.0! - Added OutTVGo content at{" "}
+          <Icon type="add_to_queue" className="pl-2" />
+        </Alert>
         {!this.props.avoidUserSeries &&
           this.state.userSeries && (
             <div>

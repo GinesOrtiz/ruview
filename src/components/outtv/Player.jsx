@@ -1,5 +1,6 @@
 import React from "react";
 import Hotkeys from "react-hot-keys";
+import ReactPlayer from "react-player";
 
 const onKeyDown = key => {
   const player = document.querySelector("video");
@@ -48,23 +49,25 @@ const Player = props => (
     keyName="space, left, right, up, down, f, esc, m"
     onKeyDown={onKeyDown}
   >
-    <video
+    <ReactPlayer
+      className="video"
       controls
-      autoPlay
-      src={props.src}
+      autoPlay="true"
+      url={props.src}
       onLoadedMetadata={props.onLoad}
       onTimeUpdate={props.onTimeUpdate}
-    >
-      {props.subtitles &&
-        props.subtitles.map(e => (
-          <track
-            key={e.label}
-            src={`https://ruview.misly.es/subs.php?f=${e.file}`}
-            kind="subtitles"
-            label={e.label}
-          />
-        ))}
-    </video>
+      config={{
+        file: {
+          tracks: props.subtitles
+            ? props.subtitles.map(e => ({
+                kind: "subtitles",
+                src: `https://ruview.misly.es/subs.php?f=${e.file}`,
+                srcLang: e.srclang
+              }))
+            : []
+        }
+      }}
+    />
   </Hotkeys>
 );
 
