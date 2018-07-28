@@ -20,11 +20,17 @@ class Serie extends React.Component {
     return element ? element.value : null;
   }
 
+  compare(a, b) {
+    if (a.title < b.title) return -1;
+    if (a.title > b.title) return 1;
+    return 0;
+  }
+
   componentDidMount = () => {
     axios.get(`/page/${this.props.match.params.id}`).then(e => {
       const seasons = {};
 
-      e.data.container.forEach(ec => {
+      e.data.container.sort(this.compare).forEach(ec => {
         seasons[ec.id] = {
           name: ec.attributes.find(eca => eca.key === "name").value,
           id: ec.id,
@@ -34,7 +40,11 @@ class Serie extends React.Component {
         };
       });
 
-      this.setState({ seasons, activeSeason: Object.values(seasons)[0].id });
+      this.setState({
+        name: e.data.page.title,
+        seasons,
+        activeSeason: Object.values(seasons)[0].id
+      });
     });
   };
 
@@ -44,7 +54,10 @@ class Serie extends React.Component {
     }
     return (
       <div class="row home-section">
-        <div class="col col-md-3 col-lg-2">
+        <div class="w-100">
+          <h1 className="pl-3 pr-3 pt-3 title">{this.state.name}</h1>
+        </div>
+        <div class="col col-md-3 col-lg-2 p-3">
           <ListGroup>
             {Object.values(this.state.seasons).map(e => (
               <ListGroupItem
@@ -56,7 +69,7 @@ class Serie extends React.Component {
             ))}
           </ListGroup>
         </div>
-        <div className="col col-md-9 col-lg-10">
+        <div className="col col-md-9 col-lg-10 p-3">
           <div className="row align-items-center">
             {this.state.seasons[this.state.activeSeason].items.map(e => (
               <div className="col media-content" key={e.id}>
