@@ -94,7 +94,7 @@ class Home extends React.Component {
                           "Navigation to ",
                           ""
                         )}
-                        thumbnail={this.getProperty(e, "image-background")}
+                        thumbnail={`http://ca.misly.es/img.php?c=${e.id}`}
                       />
                     </div>
                   ))}
