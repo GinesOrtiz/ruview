@@ -12,14 +12,11 @@ class Header extends React.Component {
         <Link to="/">
           <Icon type="dashboard" />
         </Link>
-        <Link to="/series">
-          <Icon type="tv" />
-        </Link>
-        <Link to="/movies">
-          <Icon type="local_movies" />
-        </Link>
         <Link to="/outtv">
           <Icon type="add_to_queue" />
+        </Link>
+        <Link to="/rakuten">
+          <Icon type="fiber_new" />
         </Link>
       </Navbar>
     );

@@ -13,6 +13,9 @@ import Video from "./components/video/Video";
 import OuttvHome from "./components/outtv/Home";
 import OuttvSerie from "./components/outtv/Serie";
 import OuttvVideo from "./components/outtv/Video";
+import RakutenHome from "./components/rakuten/Home";
+import RakutenMovie from "./components/rakuten/Movie";
+import RakutenSerie from "./components/rakuten/Serie";
 
 const App = () => (
   <Router history={history}>
@@ -31,6 +34,9 @@ const App = () => (
           <Route exact path="/outtv/serie/:id" component={OuttvSerie} />
           <Route exact path="/outtv/video/:id" component={OuttvVideo} />
           <Route exact path="/outtv/:tab" component={OuttvHome} />
+          <Route exact path="/rakuten/" component={RakutenHome} />
+          <Route exact path="/rakuten/movie/:id" component={RakutenMovie} />
+          <Route exact path="/rakuten/serie/:id" component={RakutenSerie} />
         </Switch>
       </div>
     </div>

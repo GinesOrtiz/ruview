@@ -9,3 +9,17 @@
   width: 240px;
   padding: 0;
 }
+
+.search-zone {
+  padding: 20px;
+}
+
+.search-zone input {
+  border: none;
+  box-shadow: 0 2px white;
+  width: 100%;
+  color: white;
+  background: transparent;
+  outline: none;
+  padding: 10px 0;
+}

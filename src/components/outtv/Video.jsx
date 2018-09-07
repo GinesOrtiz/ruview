@@ -1,7 +1,7 @@
 import React from "react";
 import { outtvClient as axios } from "../../services/client";
 import Loading from "../common/Loading";
-import dashjs from "dashjs";
+import Player from "./Player";
 import "./home.css";
 
 class Video extends React.Component {
@@ -16,15 +16,10 @@ class Video extends React.Component {
 
   componentDidMount = () => {
     axios.get(`/item/${this.props.match.params.id}`).then(e => {
-      console.log(this.getProperty(e.data, "video-url"));
-      let video = this.getProperty(e.data, "video-url");
-      video = video.replace("http", "https");
-
-      try {
-        const player = dashjs.MediaPlayer().create();
-        player.initialize(document.querySelector("video"), video, true);
-      } catch (e) {}
-      this.setState({ video });
+      this.setState({
+        video: this.getProperty(e.data, "video-url"),
+        subtitles: e.data.subtitles
+      });
     });
   };
 
@@ -32,7 +27,8 @@ class Video extends React.Component {
     return (
       <div className="video-section">
         {!this.state.video && <Loading text="Loading content" />}
-        <video controls />
+        <Player src={this.state.video} subtitles={this.state.subtitles} />
+        {/*<ReactPlayer className="video" url={this.state.video} controls />*/}
       </div>
     );
   }

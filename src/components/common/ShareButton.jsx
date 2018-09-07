@@ -19,9 +19,13 @@ const shareLink = name => {
   window.open(`https://twitter.com/intent/tweet?${str}`, "_blank");
 };
 
-const ShareButton = (props) => (
-  <Button color="primary" onClick={() => shareLink(props.name)} className={props.fixed ? 'fixed-share' : ''}>
-    <Icon type="share" /> Share it on Twitter
+const ShareButton = props => (
+  <Button
+    color="primary"
+    onClick={() => shareLink(props.name)}
+    className={props.fixed ? "fixed-share" : ""}
+  >
+    Share it on Twitter
   </Button>
 );
 
