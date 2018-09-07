@@ -10,6 +10,12 @@
   padding: 0;
 }
 
+.home-section .col.large {
+  height: 240px !important;
+  width: 170px;
+  padding: 0;
+}
+
 .video-section {
   margin: 0 -15px;
   height: 100%;

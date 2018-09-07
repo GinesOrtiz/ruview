@@ -5,7 +5,8 @@ const Icon = props => (
     className={`icon ${props.className}`}
     style={{
       fontSize: `${props.size || 32}px`,
-      lineHeight: `${props.size || 32}px`
+      lineHeight: `${props.size || 32}px`,
+      display: `${props.display || "inline-block"}`
     }}
   >
     {props.type}

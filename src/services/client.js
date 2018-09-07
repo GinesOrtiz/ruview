@@ -10,5 +10,10 @@ const outtvClient = axios.create({
   timeout: 30000
 });
 
+const rakutenClient = axios.create({
+  baseURL: "https://ru.misly.es/rakuten/",
+  timeout: 30000
+});
+
 export default client;
-export { outtvClient };
+export { outtvClient, rakutenClient };

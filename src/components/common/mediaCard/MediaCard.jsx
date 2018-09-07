@@ -20,6 +20,8 @@ const getImage = props => {
       return props.thumbnail.replace("1920x1080", "480x1080");
     }
     return `${props.thumbnail}`;
+  } else if (props.rakuten) {
+    return `https://ru.misly.es/rakuten/img.php?c=${props.id}`;
   } else {
     return `${props.thumbnail}?fit=crop&fm=jpg&q=75&w=240&h135`;
   }
@@ -28,14 +30,24 @@ const getImage = props => {
 const MediaCard = props => (
   <div
     onClick={() => onMediaCardClick(props)}
-    className={`media-card col ${props.cardType}`}
+    className={`media-card col ${props.cardType} ${props.large ? "large" : ""}`}
   >
-    <img
-      alt={props.name}
-      src={`${getImage(props)}`}
-      width="240px"
-      height="135px"
-    />
+    {props.large ? (
+      <img
+        alt={props.name}
+        src={`${getImage(props)}`}
+        height="240px"
+        width="170px"
+      />
+    ) : (
+      <img
+        alt={props.name}
+        src={`${getImage(props)}`}
+        width="240px"
+        height="135px"
+      />
+    )}
+
     <div className="media-name row align-items-center">
       <span className="col">{props.name}</span>
     </div>

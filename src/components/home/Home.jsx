@@ -11,7 +11,8 @@ import "./home.css";
 class Home extends React.Component {
   state = {
     content: null,
-    userSeries: null
+    userSeries: null,
+    search: ""
   };
 
   componentWillMount = () => {
@@ -30,6 +31,12 @@ class Home extends React.Component {
     });
   };
 
+  onSearch = e => {
+    this.setState({
+      search: e.target.value ? e.target.value.toLowerCase() : ""
+    });
+  };
+
   render() {
     if (!this.state.content) {
       return <Loading text="Loading content" />;
@@ -38,9 +45,15 @@ class Home extends React.Component {
     return (
       <div className="home-section">
         <Alert className="m-4 changelog">
-          Version 2.0! - Added OutTVGo content at{" "}
-          <Icon type="add_to_queue" className="pl-2" />
+          Version 3.0! - Added Rakuten movies at{" "}
+          <Icon type="fiber_new" className="pl-2" />
+          <small>
+            <b> (Most of the content is in Spanish)</b>
+          </small>
         </Alert>
+        <div className="search-zone mb-4">
+          <input placeholder="Search..." onChange={this.onSearch} />
+        </div>
         {!this.props.avoidUserSeries &&
           this.state.userSeries && (
             <div>
@@ -60,11 +73,14 @@ class Home extends React.Component {
           <div>
             <h3 className="default-title">Series</h3>
             <div className="row align-items-center">
-              {this.state.content.filter(e => e.type === "series").map(e => (
-                <div className="col media-content" key={e.id}>
-                  <MediaCard {...e} />
-                </div>
-              ))}
+              {this.state.content
+                .filter(e => e.type === "series")
+                .filter(e => e.name.toLowerCase().includes(this.state.search))
+                .map(e => (
+                  <div className="col media-content" key={e.id}>
+                    <MediaCard {...e} />
+                  </div>
+                ))}
             </div>
           </div>
         )}
@@ -72,11 +88,14 @@ class Home extends React.Component {
           <div>
             <h3 className="default-title">Movies</h3>
             <div className="row align-items-center">
-              {this.state.content.filter(e => e.type === "movies").map(e => (
-                <div className="col media-content" key={e.id}>
-                  <MediaCard {...e} />
-                </div>
-              ))}
+              {this.state.content
+                .filter(e => e.type === "movies")
+                .filter(e => e.name.toLowerCase().includes(this.state.search))
+                .map(e => (
+                  <div className="col media-content" key={e.id}>
+                    <MediaCard {...e} />
+                  </div>
+                ))}
             </div>
           </div>
         )}
