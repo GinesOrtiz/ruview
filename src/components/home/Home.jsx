@@ -6,6 +6,7 @@ import axios from "../../services/client";
 import Loading from "../common/Loading";
 import MediaCard from "../common/mediaCard/MediaCard";
 import Icon from "../common/Icon";
+import PayPalDonation from "../common/PayPalDonation.jsx";
 import "./home.css";
 
 class Home extends React.Component {
@@ -44,13 +45,6 @@ class Home extends React.Component {
 
     return (
       <div className="home-section">
-        <Alert className="m-4 changelog">
-          Version 3.0! - Added Rakuten movies at{" "}
-          <Icon type="fiber_new" className="pl-2" />
-          <small>
-            <b> (Most of the content is in Spanish)</b>
-          </small>
-        </Alert>
         <div className="search-zone mb-4">
           <input placeholder="Search..." onChange={this.onSearch} />
         </div>

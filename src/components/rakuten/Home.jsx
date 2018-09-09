@@ -12,12 +12,19 @@ class Home extends React.Component {
   state = {
     content: null,
     userSeries: null,
-    search: ""
+    search: "",
+    iOS: false
   };
 
   componentWillMount = () => {
     //ga("send", "event", "Page", this.props.section || "home");
     this.requestMainContent(this.state.section);
+    if (
+      window.navigator.userAgent.includes("iPhone") ||
+      window.navigator.userAgent.includes("iPad")
+    ) {
+      this.setState({ iOS: true });
+    }
   };
 
   requestMainContent = () => {
@@ -38,6 +45,11 @@ class Home extends React.Component {
 
     return (
       <div className="home-section">
+        {this.state.iOS && (
+          <Alert className="m-4 changelog">
+            This content is not compatible with iOS
+          </Alert>
+        )}
         <div className="search-zone mb-4">
           <input placeholder="Search..." onChange={this.onSearch} />
         </div>

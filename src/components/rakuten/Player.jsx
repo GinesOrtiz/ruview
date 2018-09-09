@@ -12,7 +12,8 @@ class Player extends React.Component {
     audio: null,
     subtitles: null,
     video: null,
-    showViewOptions: true
+    showViewOptions: true,
+    currentOption: null
   };
 
   getProperty(content, key) {
@@ -24,21 +25,38 @@ class Player extends React.Component {
     axios
       .get(`?s=info&t=${this.props.contentType}&c=${this.props.id}`)
       .then(e => {
-        const audio =
-          e.data.data.view_options.private.streams[0].audio_languages;
-        const subtitles =
-          e.data.data.view_options.private.streams[0].subtitle_languages;
+        const streams = e.data.data.view_options.private.streams;
+
+        let audio = [];
+        let subtitles = [];
+
+        streams.forEach(e => {
+          audio = [...audio, e.audio_languages];
+          subtitles = [...subtitles, e.subtitle_languages];
+        });
+
         this.setState({
           audio,
           subtitles,
           audioUser: audio[0].id,
-          subtitlesUser: subtitles[0].id
+          subtitlesUser: subtitles[0].id,
+          streams
         });
       });
   };
 
-  selectSource = (t, e) => {
-    this.setState({ [`${t}User`]: e.id });
+  selectSource = (t, e, i) => {
+    const state = {};
+
+    if (this.state.currentOption !== i) {
+      state.audioUser = null;
+      state.subtitlesUser = null;
+    }
+
+    state.currentOption = i;
+    state[`${t}User`] = e.id;
+
+    this.setState(state);
   };
 
   playContent = () => {
@@ -141,40 +159,44 @@ class Player extends React.Component {
           return text;
       }
     };
-    const SelectOptions = props => (
-      <div className="mb-3">
-        <h3>
-          {props.type === "audio" ? "Audio language" : "Subtitles language"}
-        </h3>
-        <div className="btn-group">
-          {props.source.map(e => (
-            <Button
-              key={e.name}
-              color={
-                this.state[`${props.type}User`] === e.id ? "success" : "white"
-              }
-              onClick={() => props.selectSource(props.type, e)}
-            >
-              {translate(e.name)}
-            </Button>
-          ))}
-        </div>
-      </div>
-    );
+    const SelectOptions = props =>
+      props.source.map(e => (
+        <Button
+          key={e.name}
+          color={this.state[`${props.type}User`] === e.id ? "success" : "white"}
+          disabled={
+            props.type === "subtitles" && props.opt !== this.state.currentOption
+          }
+          onClick={() => props.selectSource(props.type, e, props.opt)}
+        >
+          {translate(e.name)}
+        </Button>
+      ));
 
     const ViewOptions = () => (
       <div className="video-options">
-        {["audio", "subtitles"].map(
-          e =>
-            this.state[e] && (
-              <SelectOptions
-                key={e}
-                selectSource={this.selectSource}
-                source={this.state[e]}
-                type={e}
-              />
-            )
-        )}
+        <div>
+          {["audio", "subtitles"].map(source => (
+            <div key={source}>
+              <h3>
+                {source === "audio" ? "Audio language" : "Subtitles language"}
+              </h3>
+              <div className="mb-3">
+                <div className="btn-group">
+                  {this.state[source].map((e, i) => (
+                    <SelectOptions
+                      key={e.id}
+                      selectSource={this.selectSource}
+                      source={e}
+                      type={source}
+                      opt={i}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         <Button onClick={this.playContent} color="primary">
           Play
         </Button>
