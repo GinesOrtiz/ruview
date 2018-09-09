@@ -17,11 +17,14 @@ import RakutenHome from "./components/rakuten/Home";
 import RakutenMovie from "./components/rakuten/Movie";
 import RakutenSerie from "./components/rakuten/Serie";
 
+import PayPalDonation from "./components/common/PayPalDonation";
+
 const App = () => (
   <Router history={history}>
     <div className="main">
       <Header />
       <div className="main-content">
+        <PayPalDonation />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/series" component={Series} />
